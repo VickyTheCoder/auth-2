@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.urls import path
 from ui import views as ui_views
+from cust import views as cust_views
 
 urlpatterns = [
-    path('',ui_views.login_page),
+    path('', ui_views.login_page),
+    path('login', cust_views.login_user),
 ]

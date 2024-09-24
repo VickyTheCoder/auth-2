@@ -12,3 +12,8 @@ def login_user(request):
             return render(request=request,
                           template_name='profile.html')
         return HttpResponse("Login Failed, <a href='/'>Login again</a>")
+    
+def logout_user(request):
+    auth.logout(request)
+    return render(request=request,
+                  template_name='profile.html')

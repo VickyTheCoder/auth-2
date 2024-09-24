@@ -21,4 +21,5 @@ from cust import views as cust_views
 urlpatterns = [
     path('', ui_views.login_page),
     path('login', cust_views.login_user),
+    path('logout', cust_views.logout_user),
 ]

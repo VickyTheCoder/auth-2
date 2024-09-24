@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse
 from django.contrib import auth
 import traceback
+from cust.forms import LoginForm
 
 # Create your views here.
 def login_user(request):
@@ -43,4 +44,24 @@ def add_user(request):
                 print(traceback.format_exc())# to debug
                 error = str(e)
         return HttpResponse(f"Signup Failed due to <b>{error}</b><br><a href='/signup'>Signup again</a>")
-        
+
+def reset_password(request):
+    error = None # Assumes the user's password change is positive
+    if request.method == 'POST':
+        usr = request.POST.get('user_name')
+        pwd = request.POST.get('pwd')
+        pwd2 = request.POST.get('pwd2')
+        user = auth.authenticate(username=usr, password=pwd)
+        if user:# user is eligible to change password
+            u = auth.models.User.objects.get(username=usr)
+            u.set_password(pwd2)
+            u.save()
+        else:
+            error = "Invalid User"
+        if error is None:
+            # to check if the changed password works
+            return render(request=request,
+                          template_name='login.html',
+                          context={'login_form': LoginForm})
+        return HttpResponse(f"Reset Password Failed due to <b>{error}</b><br><a href='/reset/password'>Try again</a>")
+  

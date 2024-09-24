@@ -24,4 +24,6 @@ urlpatterns = [
     path('logout', cust_views.logout_user),
     path('signup', ui_views.signup_page),
     path('new/user', cust_views.add_user),
+    path('reset/password', ui_views.reset_password_page),
+    path('reset/pwd', cust_views.reset_password),
 ]

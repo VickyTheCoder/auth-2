@@ -12,3 +12,8 @@ def signup_page(request):
         return render(request=request,
                       template_name='signup.html',
                       context={'signup_form': SignupForm})
+    
+def reset_password_page(request):
+    if request.method == 'GET':
+        return render(request=request,
+                      template_name='reset_password.html')

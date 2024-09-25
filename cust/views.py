@@ -1,7 +1,10 @@
 from django.shortcuts import render, HttpResponse
 from django.contrib import auth
+from django.forms.models import model_to_dict
+
 import traceback
 from cust.forms import LoginForm
+
 
 # Create your views here.
 def login_user(request):
@@ -64,4 +67,12 @@ def reset_password(request):
                           template_name='login.html',
                           context={'login_form': LoginForm})
         return HttpResponse(f"Reset Password Failed due to <b>{error}</b><br><a href='/reset/password'>Try again</a>")
-  
+
+@auth.decorators.login_required(login_url='/')
+def cust_details(request):
+    user = request.user
+    u = auth.models.User.objects.get(pk=user.id)
+    ud = model_to_dict(u)
+    return render(request=request,
+                  template_name='user_details.html',
+                  context={'ud': ud})

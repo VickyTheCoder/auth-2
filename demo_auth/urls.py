@@ -26,4 +26,5 @@ urlpatterns = [
     path('new/user', cust_views.add_user),
     path('reset/password', ui_views.reset_password_page),
     path('reset/pwd', cust_views.reset_password),
+    path('cust/details', cust_views.cust_details),
 ]

@@ -73,6 +73,8 @@ def cust_details(request):
     user = request.user
     u = auth.models.User.objects.get(pk=user.id)
     ud = model_to_dict(u)
+    ud.pop('id')
+    ud.pop('password')
     return render(request=request,
                   template_name='user_details.html',
                   context={'ud': ud})
